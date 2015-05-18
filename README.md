@@ -1,2 +1,2 @@
 # calendar
-An exhaustive API for ESIEE's calendat.
+An exhaustive API for ESIEE's calendar.
