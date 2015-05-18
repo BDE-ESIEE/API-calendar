@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/BDE-ESIEE/calendar/issues"
   },
-  "homepage": "https://github.com/BDE-ESIEE/calendar"
+  "homepage": "https://github.com/BDE-ESIEE/calendar",
+  "dependencies": {
+    "body-parser": "^1.12.4",
+    "express": "^4.12.4",
+    "mongoose": "^4.0.3"
+  }
 }
