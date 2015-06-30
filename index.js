@@ -20,13 +20,14 @@ var mongoose   = require('mongoose');
 mongoose.connect('mongodb://localhost/calendar_test');
 var Activity   = require('./app/models/activity');
 
+var ade = require('./app/ade/index.js')(Activity);
+var roomfinder = require('./app/roomfinder/index.js')(Activity);
+
 
 // =============================================================================
 // MAKE ROOM CACHE
 // =============================================================================
 
-
-var ade = require('./app/ade/index.js')(Activity);
 
 ade.refreshRoomsCache();
 // Refresh every hours
@@ -83,6 +84,17 @@ router.route('/refresh')
 		console.log(requestsLogPrefix + 'Database refresh requested.');
 		res.json({message: 'Rooms refreshed!'});
 	});
+
+router.route('/rooms')
+	.get(function(req, res) {
+		roomfinder.findRoomNow(res);
+	});
+
+router.route('/rooms/:date')
+	.get(function(req, res) {
+		roomfinder.findRoom(new Date(Date.parse(req.params.date)), res);
+	});
+
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api

@@ -61,6 +61,7 @@ saveEvent = function(event) {
 getRooms = function(location) {
 	var rooms = location.split(",");
 	rooms = _.map(rooms, function(room) {
+		// Strip the room name from any trailing V or +
 		// Ugly but I don't see any alternative
 		return room.split('+')[0].split('V')[0];
 	});
