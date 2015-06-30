@@ -4,18 +4,7 @@ var chalk = require('chalk');
 
 var ade = {}
 
-cleanEvent = function(event) {
-	return _.omit(
-		event,
-		'params',
-		'dtstamp',
-		'uid',
-		'created',
-		'last-modified',
-		'sequence',
-		'type'
-	);
-}
+var cacheLogPrefix = chalk.bold.underline("[Cache]") + " ";
 
 ade.refreshRoomsCache = function() {
 	ical.fromURL(
@@ -25,37 +14,47 @@ ade.refreshRoomsCache = function() {
 			if(err)
 				console.error(err);
 
-			var cacheLogPrefix = chalk.bold.underline("[Cache]") + " ";
-
 			console.log(cacheLogPrefix + "Removing previous cache.");
-			ade.Activity.remove({}, function(err, activity) {
-				if(err)
-					console.error(err);
-			});
+			clearCache();
 
 			console.log(cacheLogPrefix + "Populating cache.");
-			_.each(data, function(event) {
-				var activity = new ade.Activity();
-
-				if(event.location == "M.D."
-				   || event.location == "05-Examens-si-multi classes"
-				   || event.location == "04-Examens") {
-					console.warn(cacheLogPrefix + 'Ommiting event in "' + event.location + '"');
-				} else {
-					activity.name = event.summary;
-					activity.room = event.location;
-					activity.start = event.start;
-					activity.end  = event.end;
-
-					activity.save(function(err) {
-						if(err)
-							console.error(err);
-					});
-				}
-			});
+			populateCache(data);
 			console.log(cacheLogPrefix + "Done.");
 		}
 	);
+}
+
+clearCache = function() {
+	ade.Activity.remove({}, function(err, activity) {
+		if(err)
+			console.error(err);
+	});
+}
+
+populateCache = function(data) {
+	_.each(data, function(event) {
+		if(event.location == "M.D."
+		   || event.location == "05-Examens-si-multi classes"
+		   || event.location == "04-Examens") {
+			console.warn(cacheLogPrefix + 'Ommiting event in "' + event.location + '"');
+		} else {
+			saveEvent(event);
+		}
+	});
+}
+
+saveEvent = function(event) {
+	var activity = new ade.Activity();
+
+	activity.name = event.summary;
+	activity.room = event.location;
+	activity.start = event.start;
+	activity.end  = event.end;
+
+	activity.save(function(err) {
+		if(err)
+			console.error(err);
+	});
 }
 
 module.exports = function(Activity) {
