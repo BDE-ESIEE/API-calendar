@@ -3,7 +3,7 @@ var Schema   = mongoose.Schema;
 
 var ActivitySchema = new Schema({
     name : String,
-    room : String,
+    rooms: [String],
     start: Date,
     end  : Date
 });

@@ -2,6 +2,7 @@
 // BASE SETUP
 // =============================================================================
 
+
 // call the packages we need
 var express    = require('express');
 var app        = express();
@@ -24,11 +25,13 @@ var Activity   = require('./app/models/activity');
 // MAKE ROOM CACHE
 // =============================================================================
 
+
 var ade = require('./app/ade/index.js')(Activity);
 
 ade.refreshRoomsCache();
 // Refresh every hours
 setInterval(ade.refreshRoomsCache, 3600000);
+
 
 // =============================================================================
 // ROUTES FOR OUR API
@@ -43,7 +46,7 @@ var router = express.Router();
 // middleware to use for all requests
 router.use(function(req, res, next) {
 	// do logging
-	console.log(requestsLogPrefix + req.path + ' Requested.');
+	console.log(requestsLogPrefix + "URI /api" + req.path + ' Requested.');
 
 	// make sure we go to the next routes and don't stop here
 	next();
@@ -89,6 +92,7 @@ app.use('/api', router);
 // =============================================================================
 // START THE SERVER
 // =============================================================================
+
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
