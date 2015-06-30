@@ -1,19 +1,20 @@
-var ical = require('ical');
-var _    = require('lodash');
+var ical  = require('ical');
+var _     = require('lodash');
+var chalk = require('chalk');
 
 var ade = {}
 
 cleanEvent = function(event) {
 	return _.omit(
-        event,
-        'params',
-        'dtstamp',
-        'uid',
-        'created',
-        'last-modified',
-        'sequence',
-        'type'
-    );
+		event,
+		'params',
+		'dtstamp',
+		'uid',
+		'created',
+		'last-modified',
+		'sequence',
+		'type'
+	);
 }
 
 ade.refreshRoomsCache = function() {
@@ -22,29 +23,37 @@ ade.refreshRoomsCache = function() {
 		{},
 		function(err, data) {
 			if(err)
-				console.log(err);
+				console.error(err);
 
-			console.log("Removing previous cache.");
+			var cacheLogPrefix = chalk.bold.underline("[Cache]") + " ";
+
+			console.log(cacheLogPrefix + "Removing previous cache.");
 			ade.Activity.remove({}, function(err, activity) {
 				if(err)
-					console.log(err);
+					console.error(err);
 			});
 
-			console.log("Populating cache.");
+			console.log(cacheLogPrefix + "Populating cache.");
 			_.each(data, function(event) {
 				var activity = new ade.Activity();
 
-				activity.name = event.summary;
-				activity.room = event.location;
-				activity.start = event.start;
-				activity.end  = event.end;
+				if(event.location == "M.D."
+				   || event.location == "05-Examens-si-multi classes"
+				   || event.location == "04-Examens") {
+					console.warn(cacheLogPrefix + 'Ommiting event in "' + event.location + '"');
+				} else {
+					activity.name = event.summary;
+					activity.room = event.location;
+					activity.start = event.start;
+					activity.end  = event.end;
 
-				activity.save(function(err) {
-					if(err)
-						console.log(err);
-				});
+					activity.save(function(err) {
+						if(err)
+							console.error(err);
+					});
+				}
 			});
-			console.log("Done.");
+			console.log(cacheLogPrefix + "Done.");
 		}
 	);
 }

@@ -6,6 +6,7 @@
 var express    = require('express');
 var app        = express();
 var bodyParser = require('body-parser');
+var chalk      = require('chalk');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -34,13 +35,15 @@ setInterval(ade.refreshRoomsCache, 3600000);
 // =============================================================================
 
 
+var requestsLogPrefix = chalk.bold.underline("[Request]") + " ";
+
 // get an instance of the express Router
 var router = express.Router();
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
 	// do logging
-	console.log(req.path + ' Requested.');
+	console.log(requestsLogPrefix + req.path + ' Requested.');
 
 	// make sure we go to the next routes and don't stop here
 	next();
@@ -61,7 +64,7 @@ router.route('/activities')
 		});
 	});
 
-router.route("/activities/:activity_id")
+router.route('/activities/:activity_id')
 	.get(function(req, res) {
 		Activity.findById(req.params.activity_id, function(err, activity) {
 			if(err)
@@ -69,6 +72,13 @@ router.route("/activities/:activity_id")
 
 			res.json(activity);
 		});
+	});
+
+router.route('/refresh')
+	.get(function(req, res) {
+		ade.refreshRoomsCache();
+		console.log(requestsLogPrefix + 'Database refresh requested.');
+		res.json({message: 'Rooms refreshed!'});
 	});
 
 // REGISTER OUR ROUTES -------------------------------
