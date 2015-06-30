@@ -1,24 +1,32 @@
 {
-  "name": "calendar",
-  "version": "0.1.0",
-  "description": "An exhaustive API for ESIEE's calendar.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/BDE-ESIEE/calendar.git"
-  },
-  "author": "Maxence Aïci",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/BDE-ESIEE/calendar/issues"
-  },
-  "homepage": "https://github.com/BDE-ESIEE/calendar",
-  "dependencies": {
-    "body-parser": "^1.12.4",
-    "express": "^4.12.4",
-    "mongoose": "^4.0.3"
-  }
+	"name"        : "calendar",
+	"version"     : "0.1.0",
+	"description" : "An exhaustive API for ESIEE's calendar.",
+	"main"        : "index.js",
+
+	"scripts"     : {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+
+	"repository": {
+		"type": "git",
+		"url" : "https://github.com/BDE-ESIEE/calendar.git"
+	},
+
+	"author" : "Maxence Aïci",
+	"license": "MIT",
+
+	"bugs": {
+		"url": "https://github.com/BDE-ESIEE/calendar/issues"
+	},
+
+	"homepage": "https://github.com/BDE-ESIEE/calendar",
+
+	"dependencies": {
+		"body-parser" : "^1.12.4",
+		"express"     : "^4.12.4",
+		"mongoose"    : "^4.0.3",
+		"ical"        : "^0.3.1",
+		"lodash"      : "^2.4.1"
+	}
 }

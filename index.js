@@ -20,6 +20,16 @@ var Activity   = require('./app/models/activity');
 
 
 // =============================================================================
+// MAKE ROOM CACHE
+// =============================================================================
+
+var ade = require('./app/ade/index.js')(Activity);
+
+ade.refreshRoomsCache();
+// Refresh every hours
+setInterval(ade.refreshRoomsCache, 3600000);
+
+// =============================================================================
 // ROUTES FOR OUR API
 // =============================================================================
 
@@ -38,28 +48,10 @@ router.use(function(req, res, next) {
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
-	res.json({ message: 'Hooray! welcome to our api!' });
+	res.json({message: 'Hooray! welcome to our api!'});
 });
 
 router.route('/activities')
-
-	// create a bear (accessed at POST http://localhost:8080/api/bears)
-	.post(function(req, res) {
-
-		// create a new instance of the Bear model
-		var activity = new Activity();
-		// set the bears name (comes from the request)
-		activity.name = req.body.name;
-
-		// save the bear and check for errors
-		activity.save(function(err) {
-			if (err)
-				res.send(err);
-
-			res.json({ message: 'Activity created!' });
-		});
-	})
-
 	.get(function(req, res) {
 		Activity.find(function(err, activities) {
 			if (err)
@@ -70,39 +62,12 @@ router.route('/activities')
 	});
 
 router.route("/activities/:activity_id")
-
 	.get(function(req, res) {
 		Activity.findById(req.params.activity_id, function(err, activity) {
 			if(err)
 				res.send(err);
 
 			res.json(activity);
-		});
-	})
-
-	.put(function(req, res) {
-		Activity.findById(req.params.activity_id, function(err, activity) {
-			if(err)
-				res.send(err);
-
-			activity.name = req.body.name
-			activity.save(function(err) {
-				if(err)
-					res.send(err);
-
-				res.json({message: 'Activity updated!'});
-			});
-		});
-	})
-
-	.delete(function(req, res) {
-		Activity.remove({
-			_id: req.params.activity_id
-		}, function(err, activity) {
-			if(err)
-				res.send(err);
-
-			res.json({message: 'Activity deleted!'});
 		});
 	});
 
