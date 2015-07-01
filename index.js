@@ -30,8 +30,7 @@ var roomfinder = require('./app/roomfinder/index.js')(Activity);
 
 
 ade.refreshRoomsCache();
-// Refresh every hours
-setInterval(ade.refreshRoomsCache, 3600000);
+var lastRefresh = new Date();
 
 
 // =============================================================================
@@ -48,6 +47,12 @@ var router = express.Router();
 router.use(function(req, res, next) {
 	// do logging
 	console.log(requestsLogPrefix + "URI /api" + req.path + ' Requested.');
+
+	// If it's been 10 minutes
+	if(new Date() - lastRefresh >= 600000) {
+		ade.refreshRoomsCache();
+		lastRefresh = new Date();
+	}
 
 	// make sure we go to the next routes and don't stop here
 	next();
