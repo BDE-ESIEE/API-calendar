@@ -42,15 +42,28 @@ populateCache = function(data) {
 			saveEvent(event);
 		}
 	});
+
+	// For testing:
+
+	//saveEvent({summary: 'SFM-2003:CTRL',  location: ''});
+	//saveEvent({summary: 'IGE-3002:CTRL',  location: ''});
+	//saveEvent({summary: 'MSH-5102D:CTRL', location: ''});
+	//saveEvent({summary: 'INF-4101B:CTRL', location: ''});
+	//saveEvent({summary: 'SI-4101A:CTRL',  location: ''});
+	//saveEvent({summary: 'LV1-2001:CTRL',  location: ''});
+	//saveEvent({summary: 'IGE-1001:CTRL',  location: ''});
+	//saveEvent({summary: 'EN5A11A:CTRL',   location: ''});
+	//saveEvent({summary: 'EL5E12:CTRL',    location: ''});
 }
 
 saveEvent = function(event) {
 	var activity = new ade.Activity();
 
-	activity.name  = event.summary;
-	activity.rooms = getRooms(event.location);
-	activity.start = event.start;
-	activity.end   = event.end;
+	activity.name        = event.summary;
+	activity.rooms       = getRooms(event.location);
+	activity.start       = event.start;
+	activity.end         = event.end;
+	activity.description = event.description;
 
 	activity.save(function(err) {
 		if(err)

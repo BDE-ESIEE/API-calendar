@@ -22,6 +22,7 @@ var Activity   = require('./app/models/activity');
 
 var ade = require('./app/ade/index.js')(Activity);
 var roomfinder = require('./app/roomfinder/index.js')(Activity);
+var testfinder = require('./app/testfinder/index.js')(Activity);
 
 
 // =============================================================================
@@ -81,6 +82,16 @@ router.route('/activities/:activity_id')
 
 			res.json(activity);
 		});
+	});
+
+router.route('/tests')
+	.get(function(req, res) {
+		testfinder.findNextTests(res);
+	});
+
+router.route('/tests/:promotion')
+	.get(function(req, res) {
+		testfinder.findNextTestsFor(req.params.promotion, res);
 	});
 
 router.route('/refresh')
