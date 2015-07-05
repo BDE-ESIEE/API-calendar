@@ -34,6 +34,7 @@ clearCache = function() {
 
 populateCache = function(data) {
 	_.each(data, function(event) {
+		// Remove edge cases were it is an uninteresting event
 		if(event.location == "M.D."
 		   || event.location == "05-Examens-si-multi classes"
 		   || event.location == "04-Examens") {
@@ -72,7 +73,8 @@ saveEvent = function(event) {
 }
 
 getRooms = function(location) {
-	var rooms = location.split(",");
+	// Location is a csv list, eg "2101,0112,5402V,1301+"
+	var rooms = location.split(","); 
 	rooms = _.map(rooms, function(room) {
 		// Strip the room name from any trailing V or +
 		// Ugly but I don't see any alternative
