@@ -8,6 +8,7 @@ var express    = require('express');
 var app        = express();
 var bodyParser = require('body-parser');
 var chalk      = require('chalk');
+var moment     = require('moment');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -126,7 +127,7 @@ router.route('/rooms')
 
 router.route('/rooms/:date')
 	.get(function(req, res) {
-		roomfinder.findRoom(new Date(Date.parse(req.params.date)),
+		roomfinder.findRoom(moment(req.params.date),
 		                    function(rooms) {
 		                    	res.jsonp(rooms)
 		                    });
