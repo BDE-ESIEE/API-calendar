@@ -74,6 +74,27 @@ router.route('/activities')
 		});
 	});
 
+router.route('/activities/:limit')
+	.get(function(req, res) {
+		Activity.find(function(err, activities) {
+			if (err)
+				res.send(err);
+
+			res.json(activities);
+		}).limit(req.params.limit);
+	});
+
+router.route('/activities/:limit/:skip')
+	.get(function(req, res) {
+		Activity.find(function(err, activities) {
+			if (err)
+				res.send(err);
+
+			res.json(activities);
+		}).limit(req.params.limit)
+		  .skip(req.params.skip);
+	});
+
 router.route('/activities/:activity_id')
 	.get(function(req, res) {
 		Activity.findById(req.params.activity_id, function(err, activity) {
