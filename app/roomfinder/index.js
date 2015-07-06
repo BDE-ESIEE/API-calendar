@@ -17,7 +17,7 @@ roomfinder.findRoom = function(date, res) {
 	console.log(roomfinderLogPrefix + "Finding occupied rooms at " + date.toString());
 	return roomfinder.Activity.find({
 		start: {
-			$lt: date
+			$lte: date
 		},
 		end: {
 			$gt: date
