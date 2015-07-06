@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 var port = process.env.PORT || 8080;
 
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://localhost/calendar_test');
+mongoose.connect('mongodb://localhost/mobile_api');
 var Activity   = require('./app/models/activity');
 
 var ade = require('./app/ade/index.js')(Activity);
