@@ -1,3 +1,6 @@
+# Calendars
+*.ics
+
 # Logs
 logs
 *.log
