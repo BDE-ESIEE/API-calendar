@@ -22,7 +22,7 @@ roomfinder.findRoom = function(date, res) {
 		end: {
 			$gt: date
 		}
-	}, function(err, activities) {
+	}, {_id:0,__v:0}, function(err, activities) {
 		if(err)
 			console.error(err);
 

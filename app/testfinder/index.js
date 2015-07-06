@@ -13,7 +13,7 @@ testfinder.findNextTests = function(res) {
 			//$regex: /^(?:[A-Z]{2,3}|LV1)-\d{4}[A-Z]?:CTRL$/
 			$regex: /:CTRL$/
 		}
-	}, function(err, activities) {
+	}, {_id:0,__v:0}, function(err, activities) {
 		if(err)
 			console.error(err);
 
@@ -34,7 +34,7 @@ testfinder.findNextTestsFor = function(promotion, res) {
 			// EN5A11A:CTRL
 			$regex: new RegExp("^(?:[A-Z]{2,3}|LV1)-" + promotion + "\\d{3}[A-Z]?:CTRL$")
 		}
-	}, function(err, activities) {
+	}, {_id:0,__v:0}, function(err, activities) {
 		if(err)
 			console.error(err);
 

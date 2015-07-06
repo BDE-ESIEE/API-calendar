@@ -66,7 +66,7 @@ router.get('/', function(req, res) {
 
 router.route('/activities')
 	.get(function(req, res) {
-		Activity.find(function(err, activities) {
+		Activity.find({}, {_id:0,__v:0}, function(err, activities) {
 			if (err)
 				res.send(err);
 
@@ -76,7 +76,7 @@ router.route('/activities')
 
 router.route('/activities/:limit')
 	.get(function(req, res) {
-		Activity.find(function(err, activities) {
+		Activity.find({}, {_id:0,__v:0}, function(err, activities) {
 			if (err)
 				res.send(err);
 
@@ -86,23 +86,13 @@ router.route('/activities/:limit')
 
 router.route('/activities/:limit/:skip')
 	.get(function(req, res) {
-		Activity.find(function(err, activities) {
+		Activity.find({}, {_id:0,__v:0}, function(err, activities) {
 			if (err)
 				res.send(err);
 
 			res.json(activities);
 		}).limit(req.params.limit)
 		  .skip(req.params.skip);
-	});
-
-router.route('/activities/:activity_id')
-	.get(function(req, res) {
-		Activity.findById(req.params.activity_id, function(err, activity) {
-			if(err)
-				res.send(err);
-
-			res.json(activity);
-		});
 	});
 
 router.route('/tests')
