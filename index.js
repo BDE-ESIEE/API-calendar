@@ -97,12 +97,17 @@ router.route('/activities/:limit/:skip')
 
 router.route('/tests')
 	.get(function(req, res) {
-		testfinder.findNextTests(res);
+		testfinder.findNextTests(function(tests) {
+		                         	res.jsonp(tests)
+		                         });
 	});
 
 router.route('/tests/:promotion')
 	.get(function(req, res) {
-		testfinder.findNextTestsFor(req.params.promotion, res);
+		testfinder.findNextTestsFor(req.params.promotion,
+		                            function(tests) {
+		                            	res.jsonp(tests)
+		                            });
 	});
 
 router.route('/refresh')
@@ -114,12 +119,17 @@ router.route('/refresh')
 
 router.route('/rooms')
 	.get(function(req, res) {
-		roomfinder.findRoomNow(res);
+		roomfinder.findRoomNow(function(rooms) {
+			res.jsonp(rooms)
+		});
 	});
 
 router.route('/rooms/:date')
 	.get(function(req, res) {
-		roomfinder.findRoom(new Date(Date.parse(req.params.date)), res);
+		roomfinder.findRoom(new Date(Date.parse(req.params.date)),
+		                    function(rooms) {
+		                    	res.jsonp(rooms)
+		                    });
 	});
 
 

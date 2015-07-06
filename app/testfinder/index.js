@@ -4,7 +4,7 @@ var testfinder = {};
 
 var testfinderLogPrefix = chalk.bold.underline('[Test Finder]') + " ";
 
-testfinder.findNextTests = function(res) {
+testfinder.findNextTests = function(callback) {
 
 	console.log(testfinderLogPrefix + "Finding tests");
 
@@ -17,11 +17,11 @@ testfinder.findNextTests = function(res) {
 		if(err)
 			console.error(err);
 
-		res.jsonp(activities);
+		callback(activities);
 	});
 }
 
-testfinder.findNextTestsFor = function(promotion, res) {
+testfinder.findNextTestsFor = function(promotion, callback) {
 
 	console.log(testfinderLogPrefix + "Finding tests for promotion " + promotion);
 
@@ -38,7 +38,7 @@ testfinder.findNextTestsFor = function(promotion, res) {
 		if(err)
 			console.error(err);
 
-		res.jsonp(activities);
+		callback(activities);
 	});
 }
 

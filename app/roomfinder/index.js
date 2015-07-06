@@ -8,11 +8,11 @@ roomfinder.availableRooms = jf.readFileSync("rooms.json").rooms;
 
 var roomfinderLogPrefix = chalk.bold.underline('[Room Finder]') + " ";
 
-roomfinder.findRoomNow = function(res) {
-	roomfinder.findRoom(new Date(), res);
+roomfinder.findRoomNow = function(callback) {
+	roomfinder.findRoom(new Date(), callback);
 }
 
-roomfinder.findRoom = function(date, res) {
+roomfinder.findRoom = function(date, callback) {
 
 	console.log(roomfinderLogPrefix + "Finding occupied rooms at " + date.toString());
 	return roomfinder.Activity.find({
@@ -33,7 +33,7 @@ roomfinder.findRoom = function(date, res) {
 		);
 
 		// Substract it from the list of available rooms
-		res.jsonp(_.difference(roomfinder.availableRooms, occupiedRooms));
+		callback(_.difference(roomfinder.availableRooms, occupiedRooms));
 	});
 }
 
