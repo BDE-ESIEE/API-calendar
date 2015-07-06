@@ -9,6 +9,7 @@ var app        = express();
 var bodyParser = require('body-parser');
 var debug      = require('debug')('app:main');
 var moment     = require('moment');
+var config     = require('./config.json');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -18,7 +19,7 @@ app.use(bodyParser.json());
 var port = process.env.PORT || 8080;
 
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://localhost/mobile_api');
+mongoose.connect(config.mongodbURL);
 var Activity   = require('./app/models/activity');
 
 var ade = require('./app/ade/index.js')(Activity);
