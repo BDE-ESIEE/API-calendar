@@ -7,7 +7,7 @@
 var express    = require('express');
 var app        = express();
 var bodyParser = require('body-parser');
-var chalk      = require('chalk');
+var debug      = require('debug')('app:main');
 var moment     = require('moment');
 
 // configure app to use bodyParser()
@@ -40,15 +40,13 @@ var lastRefresh = new Date();
 // =============================================================================
 
 
-var requestsLogPrefix = chalk.bold.underline("[Request]") + " ";
-
 // get an instance of the express Router
 var router = express.Router();
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
 	// do logging
-	console.log(requestsLogPrefix + "URI /api" + req.path + ' Requested.');
+	debug("URI /api" + req.path + ' Requested.');
 
 	// If it's been 10 minutes
 	if(new Date() - lastRefresh >= 600000) {
@@ -114,7 +112,7 @@ router.route('/tests/:promotion')
 router.route('/refresh')
 	.get(function(req, res) {
 		ade.refreshRoomsCache();
-		console.log(requestsLogPrefix + 'Database refresh requested.');
+		debug('Database refresh requested.');
 		res.jsonp({message: 'Rooms refreshed!'});
 	});
 

@@ -1,13 +1,11 @@
 var _      = require('lodash');
 var jf     = require('jsonfile');
-var chalk  = require('chalk');
+var debug  = require('debug')('app:roomfinder');
 var moment = require('moment');
 
 roomfinder = {}
 
 roomfinder.availableRooms = jf.readFileSync("rooms.json").rooms;
-
-var roomfinderLogPrefix = chalk.bold.underline('[Room Finder]') + " ";
 
 roomfinder.findRoomNow = function(callback) {
 	roomfinder.findRoom(moment(), callback);
@@ -15,7 +13,7 @@ roomfinder.findRoomNow = function(callback) {
 
 roomfinder.findRoom = function(date, callback) {
 
-	console.log(roomfinderLogPrefix + "Finding occupied rooms at " + date.toDate().toString());
+	debug("Finding occupied rooms at " + date.toDate().toString());
 
 	var safeguard = date.add(10, 'minutes');
 

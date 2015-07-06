@@ -1,12 +1,10 @@
-var chalk = require('chalk');
+var debug = require('debug')('app:testfinder');
 
 var testfinder = {};
 
-var testfinderLogPrefix = chalk.bold.underline('[Test Finder]') + " ";
-
 testfinder.findNextTests = function(callback) {
 
-	console.log(testfinderLogPrefix + "Finding tests");
+	debug("Finding tests");
 
 	testfinder.Activity.find({
 		name: {
@@ -23,7 +21,7 @@ testfinder.findNextTests = function(callback) {
 
 testfinder.findNextTestsFor = function(promotion, callback) {
 
-	console.log(testfinderLogPrefix + "Finding tests for promotion " + promotion);
+	debug("Finding tests for promotion " + promotion);
 
 	// Transform E2, E3FR, etc… to 2, 3, etc…
 	promotion = promotion.substr(1, 1);

@@ -1,27 +1,25 @@
 var ical  = require('ical');
 var _     = require('lodash');
-var chalk = require('chalk');
+var debug = require('debug')('app:cache');
 
 var ade = {
 	config: require('../../config.json')
 }
 
-var cacheLogPrefix = chalk.bold.underline("[Cache]") + " ";
-
 ade.processCache = function(err, data) {
 	if(err)
 		console.error(err);
 
-	console.log(cacheLogPrefix + "Removing previous cache.");
+	debug("Removing previous cache.");
 	ade.clearCache();
 
-	console.log(cacheLogPrefix + "Populating cache.");
+	debug("Populating cache.");
 	ade.populateCache(data);
-	console.log(cacheLogPrefix + "Done.");
+	debug("Done.");
 }
 
 ade.refreshRoomsCache = function() {
-	console.log(cacheLogPrefix + "Getting the data.");
+	debug("Getting the data.");
 	if(ade.config.parseFromFile) {
 		ade.processCache(null, ical.parseFile(ade.config.icalFilename));
 	} else {
@@ -44,7 +42,7 @@ ade.populateCache = function(data) {
 	_.each(data, function(event) {
 		// Remove edge cases were it is an uninteresting event
 		if(ade.isSpecialRoom(event.location)) {
-			console.warn(cacheLogPrefix + 'Ommiting event in "' + event.location + '"');
+			debug('Ommiting event in "' + event.location + '"');
 		} else {
 			ade.saveEvent(event);
 		}
