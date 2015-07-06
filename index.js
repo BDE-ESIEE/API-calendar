@@ -61,7 +61,7 @@ router.use(function(req, res, next) {
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
-	res.json({message: 'Hooray! welcome to our api :)'});
+	res.jsonp({message: 'Hooray! welcome to our api :)'});
 });
 
 router.route('/activities')
@@ -70,7 +70,7 @@ router.route('/activities')
 			if (err)
 				res.send(err);
 
-			res.json(activities);
+			res.jsonp(activities);
 		});
 	});
 
@@ -80,7 +80,7 @@ router.route('/activities/:limit')
 			if (err)
 				res.send(err);
 
-			res.json(activities);
+			res.jsonp(activities);
 		}).limit(req.params.limit);
 	});
 
@@ -90,7 +90,7 @@ router.route('/activities/:limit/:skip')
 			if (err)
 				res.send(err);
 
-			res.json(activities);
+			res.jsonp(activities);
 		}).limit(req.params.limit)
 		  .skip(req.params.skip);
 	});
@@ -109,7 +109,7 @@ router.route('/refresh')
 	.get(function(req, res) {
 		ade.refreshRoomsCache();
 		console.log(requestsLogPrefix + 'Database refresh requested.');
-		res.json({message: 'Rooms refreshed!'});
+		res.jsonp({message: 'Rooms refreshed!'});
 	});
 
 router.route('/rooms')

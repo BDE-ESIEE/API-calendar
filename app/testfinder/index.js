@@ -17,7 +17,7 @@ testfinder.findNextTests = function(res) {
 		if(err)
 			console.error(err);
 
-		res.json(activities);
+		res.jsonp(activities);
 	});
 }
 
@@ -38,7 +38,7 @@ testfinder.findNextTestsFor = function(promotion, res) {
 		if(err)
 			console.error(err);
 
-		res.json(activities);
+		res.jsonp(activities);
 	});
 }
 

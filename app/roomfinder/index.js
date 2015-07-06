@@ -33,7 +33,7 @@ roomfinder.findRoom = function(date, res) {
 		);
 
 		// Substract it from the list of available rooms
-		res.json(_.difference(roomfinder.availableRooms, occupiedRooms));
+		res.jsonp(_.difference(roomfinder.availableRooms, occupiedRooms));
 	});
 }
 
