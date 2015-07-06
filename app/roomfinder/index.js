@@ -3,7 +3,9 @@ var jf     = require('jsonfile');
 var debug  = require('debug')('app:roomfinder');
 var moment = require('moment');
 
-roomfinder = {}
+roomfinder = {
+	config: require('../../config.json')
+}
 
 roomfinder.availableRooms = jf.readFileSync("rooms.json").rooms;
 
@@ -15,7 +17,7 @@ roomfinder.findRoom = function(date, callback) {
 
 	debug("Finding occupied rooms at " + date.toDate().toString());
 
-	var safeguard = date.add(10, 'minutes');
+	var safeguard = date.add(roomfinder.config.roomTimeSafeguard, 'minutes');
 
 	return roomfinder.Activity.find({
 		start: {
