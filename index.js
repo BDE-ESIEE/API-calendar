@@ -54,6 +54,10 @@ router.use(function(req, res, next) {
 		ade.refreshRoomsCache();
 		lastRefresh = new Date();
 	}
+	
+	// Allow CORS
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
 	// make sure we go to the next routes and don't stop here
 	next();
