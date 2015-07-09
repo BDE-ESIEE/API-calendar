@@ -12,10 +12,13 @@ testfinder.findNextTests = function(callback) {
 			$regex: /:CTRL$/
 		}
 	}, {_id:0,__v:0}, function(err, activities) {
-		if(err)
+		if(err) {
 			console.error(err);
+			callback(err, null);
+			return;
+		}
 
-		callback(activities);
+		callback(null, activities);
 	});
 }
 
@@ -33,10 +36,13 @@ testfinder.findNextTestsFor = function(promotion, callback) {
 			$regex: new RegExp("^(?:[A-Z]{2,3}|LV1)-" + promotion + "\\d{3}[A-Z]?:CTRL$")
 		}
 	}, {_id:0,__v:0}, function(err, activities) {
-		if(err)
+		if(err) {
 			console.error(err);
+			callback(err, null);
+			return;
+		}
 
-		callback(activities);
+		callback(null, activities);
 	});
 }
 

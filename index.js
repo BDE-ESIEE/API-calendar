@@ -9,6 +9,7 @@ var app        = express();
 var bodyParser = require('body-parser');
 var debug      = require('debug')('app:main');
 var moment     = require('moment');
+var config     = require('./config.json');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -18,7 +19,7 @@ app.use(bodyParser.json());
 var port = process.env.PORT || 8080;
 
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://localhost/mobile_api');
+mongoose.connect(config.mongodbURL);
 var Activity   = require('./app/models/activity');
 
 var ade = require('./app/ade/index.js')(Activity);
@@ -96,7 +97,10 @@ router.route('/activities/:limit/:skip')
 
 router.route('/tests')
 	.get(function(req, res) {
-		testfinder.findNextTests(function(tests) {
+		testfinder.findNextTests(function(err, tests) {
+		                         	if(err)
+		                         		res.send(err);
+
 		                         	res.jsonp(tests)
 		                         });
 	});
@@ -104,7 +108,10 @@ router.route('/tests')
 router.route('/tests/:promotion')
 	.get(function(req, res) {
 		testfinder.findNextTestsFor(req.params.promotion,
-		                            function(tests) {
+		                            function(err, tests) {
+		                            	if(err)
+		                            		res.send(err);
+
 		                            	res.jsonp(tests)
 		                            });
 	});
@@ -118,7 +125,10 @@ router.route('/refresh')
 
 router.route('/rooms')
 	.get(function(req, res) {
-		roomfinder.findRoomNow(function(rooms) {
+		roomfinder.findRoomNow(function(err, rooms) {
+			if(err)
+				res.send(err);
+
 			res.jsonp(rooms)
 		});
 	});
@@ -126,7 +136,10 @@ router.route('/rooms')
 router.route('/rooms/:date')
 	.get(function(req, res) {
 		roomfinder.findRoom(moment(req.params.date),
-		                    function(rooms) {
+		                    function(err, rooms) {
+		                    	if(err)
+		                    		res.send(err);
+
 		                    	res.jsonp(rooms)
 		                    });
 	});
