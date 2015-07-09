@@ -36,7 +36,7 @@ roomfinder.findRoom = function(date, callback) {
 		var occupiedRooms = _.flatten(
 			_.map(activities, function(activity) {
 				return activity.rooms;
-			});
+			})
 		);
 
 		// Substract it from the list of available rooms
