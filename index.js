@@ -132,7 +132,7 @@ calendarRouter.use(function(req, res, next) {
 		ade.refreshRoomsCache();
 		lastRefresh = new Date();
 	}
-	
+
 	// Allow CORS
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -237,6 +237,10 @@ var messageRouter = express.Router();
 
 messageRouter.use(function(req, res, next) {
 	debug('URI /api/message' + req.path + ' Requested.');
+
+	// Allow CORS
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
 	next();
 });
