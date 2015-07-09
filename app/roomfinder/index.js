@@ -27,8 +27,11 @@ roomfinder.findRoom = function(date, callback) {
 			$gt: date.toDate()
 		}
 	}, {_id:0,__v:0}, function(err, activities) {
-		if(err)
+		if(err) {
 			console.error(err);
+			callback(err, null);
+			return;
+		}
 
 		var occupiedRooms = _.flatten(
 			_.map(activities, function(activity) {
@@ -37,7 +40,7 @@ roomfinder.findRoom = function(date, callback) {
 		);
 
 		// Substract it from the list of available rooms
-		callback(_.difference(roomfinder.availableRooms, occupiedRooms));
+		callback(null, _.difference(roomfinder.availableRooms, occupiedRooms));
 	});
 }
 
