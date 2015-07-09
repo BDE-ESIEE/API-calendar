@@ -1,6 +1,10 @@
 # Calendars
 *.ics
 
+# API keys and secrets
+auth.json
+secrets.json
+
 # Logs
 logs
 *.log
