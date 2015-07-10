@@ -55,7 +55,7 @@ var router = express.Router();
 // middleware to use for all requests
 router.use(function(req, res, next) {
 	// do logging
-	debug("URI /api/calendar" + req.path + ' Requested.');
+	debug("URI /api2/calendar" + req.path + ' Requested.');
 
 	// If it's been 10 minutes
 	if(new Date() - lastRefresh >= 600000) {
@@ -158,9 +158,8 @@ router.route('/rooms/:date')
 
 
 // REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /api
-app.use('/api/calendar', router);
-
+// all of our routes will be prefixed with /api2
+app.use('/api2/calendar', calendarRouter);
 
 // =============================================================================
 // }}}
@@ -173,6 +172,7 @@ app.use('/api/calendar', router);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
+
 
 // =============================================================================
 // }}}
