@@ -159,7 +159,7 @@ router.route('/rooms/:date')
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api2
-app.use('/api2/calendar', calendarRouter);
+app.use('/api2/calendar', router);
 
 // =============================================================================
 // }}}
