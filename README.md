@@ -1,6 +1,6 @@
 # ESIEE API
 An exhaustive API for ESIEE's calendar
-https://codeship.com/projects/fb8c7db0-0187-0133-c296-36b9d4118eaa/status?branch=master
+![Codeship Badge](https://codeship.com/projects/fb8c7db0-0187-0133-c296-36b9d4118eaa/status?branch=master)
 
 # Reference
 
