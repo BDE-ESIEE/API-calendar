@@ -3,7 +3,7 @@ An exhaustive API for ESIEE's calendar
 
 # Reference
 
-The base URI for the API is ```/api2/<request>```
+The base URI for the API is ```/api/calendar/```
 
 ## Querying upcoming activities
 
@@ -29,9 +29,9 @@ This result in the following JSON template:
 
 | URI                      | Description                                                |
 |--------------------------|------------------------------------------------------------|
-| /api2/activities          | Query all upcoming activities.                             |
-| /api2/activities/*n*      | Query *n* upcoming activities.                             |
-| /api2/activities/*n*/*s*  | Query *n* upcoming activities and skip the *s* first ones. |
+| /api/calendar/activities          | Query all upcoming activities.                             |
+| /api/calendar/activities/*n*      | Query *n* upcoming activities.                             |
+| /api/calendar/activities/*n*/*s*  | Query *n* upcoming activities and skip the *s* first ones. |
 
 ## Querying upcoming tests
 
@@ -39,8 +39,8 @@ A test is an activity and therefore has the same template.
 
 | URI                    | Description                                                                                                           |
 |------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| /api2/tests             | Query all upcoming tests.                                                                                             |
-| /api2/tests/*promotion* | Query all upcoming tests for this *promotion*. (Currently support only tests with a name of type ```AAA-0000:CTRL```) |
+| /api/calendar/tests             | Query all upcoming tests.                                                                                             |
+| /api/calendar/tests/*promotion* | Query all upcoming tests for this *promotion*. (Currently support only tests with a name of type ```AAA-0000:CTRL```) |
 
 ## Querying free rooms
 
@@ -56,5 +56,5 @@ A room is only a String, which means that the result will be like:
 
 | URI               | Description                              |
 |-------------------|------------------------------------------|
-| /api2/rooms        | Query all rooms that are currently free. |
-| /api2/rooms/*time* | Query all rooms that are free at *time*. |
+| /api/calendar/rooms        | Query all rooms that are currently free. |
+| /api/calendar/rooms/*time* | Query all rooms that are free at *time*. |
