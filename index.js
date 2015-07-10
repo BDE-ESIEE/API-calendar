@@ -56,7 +56,7 @@ var isLogged = function(req, res, next) {
 	if(req.isAuthenticated())
 		return next();
 
-	//res.redirect('/api/message/login');
+	//res.redirect('/api2/message/login');
 	res.status(403).json({error: "You must be logged in to see this page"});
 }
 
@@ -125,7 +125,7 @@ var calendarRouter = express.Router();
 // middleware to use for all requests
 calendarRouter.use(function(req, res, next) {
 	// do logging
-	debug("URI /api/calendar" + req.path + ' Requested.');
+	debug("URI /api2/calendar" + req.path + ' Requested.');
 
 	// If it's been 10 minutes
 	if(new Date() - lastRefresh >= 600000) {
@@ -141,7 +141,7 @@ calendarRouter.use(function(req, res, next) {
 	next();
 });
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+// test route to make sure everything is working (accessed at GET http://localhost:8080/api2)
 calendarRouter.get('/', function(req, res) {
 	res.jsonp({message: 'Hooray! welcome to our api :)'});
 });
@@ -220,8 +220,8 @@ calendarRouter.get('/rooms/:date', function(req, res) {
 
 
 // REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /api
-app.use('/api/calendar', calendarRouter);
+// all of our routes will be prefixed with /api2
+app.use('/api2/calendar', calendarRouter);
 
 // =============================================================================
 // }}}
@@ -236,7 +236,7 @@ app.use('/api/calendar', calendarRouter);
 var messageRouter = express.Router();
 
 messageRouter.use(function(req, res, next) {
-	debug('URI /api/message' + req.path + ' Requested.');
+	debug('URI /api2/message' + req.path + ' Requested.');
 
 	// Allow CORS
 	res.header("Access-Control-Allow-Origin", "*");
@@ -252,8 +252,8 @@ messageRouter.get('/login',
 
 messageRouter.get('/login/callback',
                    passport.authenticate('google', {
-                   	successRedirect: '/api/message/login/success',
-                   	failureRedirect: '/api/message/login'
+                   	successRedirect: '/api2/message/login/success',
+                   	failureRedirect: '/api2/message/login'
                    }));
 
 messageRouter.get('/login/success', isLogged, function(req, res) {
@@ -300,7 +300,7 @@ messageRouter.route("/user/clubs")
 		});
 	});
 
-app.use('/api/message/', messageRouter);
+app.use('/api2/message/', messageRouter);
 
 // =============================================================================
 // }}}
